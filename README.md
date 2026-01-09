@@ -67,6 +67,15 @@ Backtrace omitted. Run with RUST_BACKTRACE=1 environment variable to display it.
 Run with RUST_BACKTRACE=full to include source snippets.
 ```
 
+## Notes
+
+Using absolute paths in `depends` (e.g., `["//project-a:lint", "//project-a:test"]`) still breaks, just with a different error:
+```
+mise ERROR task not found: //project-b:lint
+```
+
+The root cause appears to be that `:::` only loads the task graph for the first project - tasks from subsequent projects aren't discovered.
+
 ## Expected behavior
 
 Both `ci` tasks should run in parallel, with each task's dependencies resolved within its own project context.
