@@ -1,0 +1,8 @@
+[tasks.lint]
+run = "echo 'project-a lint'"
+
+[tasks.test]
+run = "echo 'project-a test'"
+
+[tasks.ci]
+depends = [":lint", ":test"]
