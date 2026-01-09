@@ -69,8 +69,32 @@ Run with RUST_BACKTRACE=full to include source snippets.
 
 ## Notes
 
-Using absolute paths in `depends` (e.g., `["//project-a:lint", "//project-a:test"]`) still breaks, just with a different error:
+Using absolute paths in `depends` still breaks, just with a different error:
+
+```diff
+diff --git a/project-a/mise.toml b/project-a/mise.toml
+--- a/project-a/mise.toml
++++ b/project-a/mise.toml
+@@ -5,4 +5,4 @@
+ run = "echo 'project-a test'"
+
+ [tasks.ci]
+-depends = [":lint", ":test"]
++depends = ["//project-a:lint", "//project-a:test"]
+
+diff --git a/project-b/mise.toml b/project-b/mise.toml
+--- a/project-b/mise.toml
++++ b/project-b/mise.toml
+@@ -5,4 +5,4 @@
+ run = "echo 'project-b test'"
+
+ [tasks.ci]
+-depends = [":lint", ":test"]
++depends = ["//project-b:lint", "//project-b:test"]
 ```
+
+```
+$ mise //project-a:ci ::: //project-b:ci
 mise ERROR task not found: //project-b:lint
 ```
 
