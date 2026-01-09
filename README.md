@@ -14,25 +14,25 @@ project-b/mise.toml       # has ci task with depends = [":lint", ":test"]
 
 Running single tasks:
 ```bash
-mise run //project-a:ci    # works
-mise run //project-b:ci    # works
+mise //project-a:ci    # works
+mise //project-b:ci    # works
 ```
 
 Running multiple tasks without dependencies:
 ```bash
-mise run //project-a:lint ::: //project-b:lint   # works
+mise //project-a:lint ::: //project-b:lint   # works
 ```
 
 Running sequentially:
 ```bash
-mise run //project-a:ci && mise run //project-b:ci   # works
+mise //project-a:ci && mise //project-b:ci   # works
 ```
 
 ## What fails
 
 Running multiple tasks that have dependencies:
 ```bash
-mise run //project-a:ci ::: //project-b:ci
+mise //project-a:ci ::: //project-b:ci
 # ERROR: task not found: :lint
 ```
 
